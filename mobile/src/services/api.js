@@ -11,11 +11,14 @@ function friendlyNetworkError(e){
   const msg=String(e?.message||e||'');
   const low=msg.toLowerCase();
   if(e?.name==='AbortError' || low.includes('canceled') || low.includes('cancelled')){
-    return new Error('서버 준비 시간이 길어 요청이 중단되었습니다. 다시 한 번 시도해주세요.');
+    return new Error('요청 시간이 초과되었습니다. 잠시 후 다시 시도해주세요.');
   }
   if(low.includes('network request failed') || low.includes('fetch failed')){
     return new Error('서버에 연결하지 못했습니다. 인터넷 연결 또는 서버 상태를 확인해주세요.');
   }
+  if(msg==='EMAIL_EXISTS') return new Error('이미 가입된 이메일입니다. 로그인해주세요.');
+  if(msg==='INVALID_CREDENTIALS') return new Error('이메일 또는 비밀번호가 올바르지 않습니다.');
+  if(msg==='INVALID_INPUT') return new Error('이메일과 8자 이상의 비밀번호를 확인해주세요.');
   return e instanceof Error ? e : new Error(msg);
 }
 
@@ -40,24 +43,13 @@ async function rawFetch(path,options={},timeoutMs=45000,withAuth=true){
     return data;
   }catch(e){
     throw friendlyNetworkError(e);
-  }finally{
-    clearTimeout(timer);
-  }
+  }finally{clearTimeout(timer)}
 }
 
-// Render free instances may need time to wake up after inactivity.
-// Wake the server BEFORE sending a non-idempotent register request,
-// so we never automatically retry POST /register and accidentally duplicate it.
-async function wakeServer(){
-  return rawFetch('/api/health',{method:'GET'},90000,false);
-}
-
+// Optional diagnostic / wake-up call. Login and registration do NOT depend on it.
+async function wakeServer(){ return rawFetch('/api/health',{method:'GET'},90000,false); }
 async function authRequest(path,email,password){
-  await wakeServer();
-  return rawFetch(path,{
-    method:'POST',
-    body:JSON.stringify({email,password})
-  },45000,false);
+  return rawFetch(path,{method:'POST',body:JSON.stringify({email:email.trim().toLowerCase(),password})},60000,false);
 }
 
 export const api={
