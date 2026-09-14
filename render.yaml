@@ -3,7 +3,6 @@ services:
     name: bodycheck-api
     runtime: docker
     rootDir: backend
-    plan: free
     healthCheckPath: /api/health
     envVars:
       - key: DATABASE_URL
@@ -16,6 +15,21 @@ services:
         sync: false
       - key: CORS_ORIGIN
         value: "*"
+      - key: PUBLIC_API_BASE
+        value: https://bodycheck-api.onrender.com
+      - key: ADMIN_EMAILS
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: KAKAO_REST_API_KEY
+        sync: false
+      - key: KAKAO_CLIENT_SECRET
+        sync: false
+      - key: NAVER_CLIENT_ID
+        sync: false
+      - key: NAVER_CLIENT_SECRET
+        sync: false
 databases:
   - name: bodycheck-db
-    plan: free

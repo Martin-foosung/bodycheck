@@ -2,13 +2,14 @@
   "expo": {
     "name": "BodyCheck",
     "slug": "bodycheck",
-    "version": "2.3.0",
+    "version": "2.4.0",
+    "scheme": "bodycheck",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "android": {
       "package": "com.bodycheck.health",
-      "versionCode": 1,
+      "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#F5F8FB"
@@ -20,7 +21,8 @@
         {
           "locationWhenInUsePermission": "주변 의료기관 안내를 위해 현재 위치를 사용합니다."
         }
-      ]
+      ],
+      "expo-secure-store"
     ]
   }
 }

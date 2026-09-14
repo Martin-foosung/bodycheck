@@ -7,20 +7,49 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+}
+
 model User {
   id           String             @id @default(cuid())
   email        String             @unique
-  passwordHash String
+  passwordHash String?
+  name         String?
+  role         UserRole           @default(USER)
+  status       UserStatus         @default(ACTIVE)
+  lastLoginAt  DateTime?
   createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
   records      HealthRecord[]
   favorites    FavoriteHospital[]
+  identities   AuthIdentity[]
+}
+
+model AuthIdentity {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider       String
+  providerUserId String
+  email          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@unique([provider, providerUserId])
+  @@index([userId])
 }
 
 model HealthRecord {
   id          String   @id @default(cuid())
   userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
   bodyPath    Json
   bodyPart    String
   symptom     String
@@ -40,7 +69,6 @@ model FavoriteHospital {
   id           String   @id @default(cuid())
   userId       String
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
   ykiho        String
   hospitalName String
   address      String?
