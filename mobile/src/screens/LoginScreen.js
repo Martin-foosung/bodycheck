@@ -38,7 +38,7 @@ export default function LoginScreen({onLoggedIn}){
     <Text style={s.kicker}>BODYCHECK ACCOUNT</Text><Text style={s.title}>{mode==='login'?'로그인':'회원가입'}</Text>
     <TextInput style={s.input} autoCapitalize="none" keyboardType="email-address" placeholder="이메일 주소" value={email} onChangeText={setEmail}/>
     <TextInput style={s.input} secureTextEntry placeholder="비밀번호 8자 이상" value={password} onChangeText={setPassword}/>
-    <Pressable style={[s.primary,loading&&s.disabled]} onPress={submit} disabled={loading}>{loading?<ActivityIndicator color="#fff"/>:<Text style={s.primaryText}>{mode==='login'?'로그인':'계정 만들기'}</Text>}</Pressable>
+    <Pressable style={[s.primary,loading&&s.disabled]} onPress={submit} disabled={loading}>{loading?<View style={{flexDirection:'row',alignItems:'center',gap:8}}><ActivityIndicator color="#fff"/><Text style={s.primaryText}>서버 연결 중...</Text></View>:<Text style={s.primaryText}>{mode==='login'?'로그인':'계정 만들기'}</Text>}</Pressable>
     <Pressable onPress={()=>setMode(mode==='login'?'register':'login')}><Text style={s.link}>{mode==='login'?'처음이신가요? 회원가입':'이미 계정이 있나요? 로그인'}</Text></Pressable>
     <View style={s.divider}><View style={s.line}/><Text style={s.or}>또는 SNS로 계속</Text><View style={s.line}/></View>
     <Pressable style={s.social} onPress={()=>social('google')} disabled={!!socialLoading}><Text style={s.socialText}>{socialLoading==='google'?'연결 중...':'Google로 계속'}</Text></Pressable>
