@@ -13,16 +13,17 @@
     "build:aab": "eas build -p android --profile production"
   },
   "dependencies": {
+    "@react-navigation/bottom-tabs": "latest",
+    "@react-navigation/native": "latest",
     "expo": "~57.0.0",
+    "expo-constants": "~57.0.18",
     "expo-linking": "~57.0.9",
     "expo-location": "~57.0.16",
     "expo-secure-store": "latest",
     "expo-web-browser": "~57.0.2",
     "react": "19.2.3",
     "react-native": "0.86.3",
-    "@react-navigation/native": "latest",
-    "@react-navigation/bottom-tabs": "latest",
-    "react-native-screens": "~4.26.0",
-    "react-native-safe-area-context": "~5.7.0"
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-screens": "~4.26.0"
   }
 }
