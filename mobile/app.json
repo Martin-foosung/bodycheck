@@ -2,15 +2,10 @@
   "expo": {
     "name": "BodyCheck",
     "slug": "bodycheck",
-    "version": "2.2.0",
+    "version": "2.3.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#F5F8FB"
-    },
     "android": {
       "package": "com.bodycheck.health",
       "versionCode": 1,
