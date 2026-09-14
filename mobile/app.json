@@ -1,0 +1,31 @@
+{
+  "expo": {
+    "name": "BodyCheck",
+    "slug": "bodycheck",
+    "version": "2.2.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#F5F8FB"
+    },
+    "android": {
+      "package": "com.bodycheck.health",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#F5F8FB"
+      }
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "주변 의료기관 안내를 위해 현재 위치를 사용합니다."
+        }
+      ]
+    ]
+  }
+}
